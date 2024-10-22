@@ -1,0 +1,53 @@
+package MavenTest;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AssigSauceDemo {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		//1.Launch chrome browser
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		
+		//2.Open url of website saucedemo
+		driver.get("https://www.saucedemo.com/");
+
+		//3.Get any of the Username and password and print into the console.
+		String Username = driver.findElement(By.id("login_credentials")).getText().split("\n")[3];
+		System.out.println("Username 3: " + Username);
+		
+		String password = driver.findElement(By.className("login_password")).getText().split("\n")[1];
+		System.out.println("Password : " + password);
+		
+		//4.Add username and password in the Username and Password field, what you have exctracted in above step.
+		driver.findElement(By.name("user-name")).sendKeys(Username);
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password);
+		
+		Thread.sleep(3000);
+		
+		//5.Click on login
+		driver.findElement(By.xpath("//input[@value='Login']")).click();
+		Thread.sleep(3000);
+		
+		//6.Add any one Item to the Cart.
+		driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
+		driver.findElement(By.xpath("//button[@data-test='add-to-cart-sauce-labs-bike-light']")).click();
+	
+		driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
+		
+		//7.Wait for 5 Seconds And Logout.
+		driver.findElement(By.xpath("//button[@id='react-burger-menu-btn']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[@data-test='logout-sidebar-link']")).click();
+		Thread.sleep(5000);
+		driver.quit();
+		
+		
+	}
+
+}
